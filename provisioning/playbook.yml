@@ -40,8 +40,9 @@
     - { role: geerlingguy.java, when: '"solr" in installed_extras or "selenium" in installed_extras' }
     - { role: arknoll.selenium, when: '"selenium" in installed_extras' }
     - { role: wroxbox.solr, when: '"solr" in installed_extras' }
+    - { role: geerlingguy.redis, when: '"redis" in installed_extras' }
     - { role: geerlingguy.varnish, when: '"varnish" in installed_extras' }
-    - { role: tersmitten.phpredis, when: '"phpredis" in installed_extras' }
+    - { role: wroxbox.phpredis, when: '"phpredis" in installed_extras' }
 
     # Roles for security and stability on production.
     - { role: geerlingguy.security, when: extra_security_enabled }

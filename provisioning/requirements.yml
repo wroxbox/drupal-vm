@@ -25,6 +25,7 @@
 - src: geerlingguy.repo-remi
 - src: geerlingguy.ruby
 - src: geerlingguy.security
+- src: geerlingguy.redis
 - src: wroxbox.solr
-- src: tersmitten.phpredis
+- src: wroxbox.phpredis
 - src: geerlingguy.varnish
