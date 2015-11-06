@@ -6,10 +6,10 @@
  * @see example.aliases.drushrc.php.
  */
 
-{% for vhost in apache_vhosts %}
-$aliases['{{ vhost.servername }}'] = array(
-  'uri' => '{{ vhost.servername }}',
-  'root' => '{{ vhost.documentroot }}',
+{% for vhost in nginx_hosts %}
+$aliases['{{ vhost.server_name }}'] = array(
+  'uri' => '{{ vhost.server_name }}',
+  'root' => '{{ vhost.root }}',
 );
 
 {% endfor %}
