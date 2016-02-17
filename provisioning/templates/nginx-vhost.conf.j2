@@ -1,6 +1,7 @@
 {% if item.server_name_redirect is defined %}
 server {
     listen       80;
+    listen       443 ssl;
     server_name  {{ item.server_name_redirect }};
     return       301 http://{{ item.server_name }}$request_uri;
 }
@@ -8,8 +9,13 @@ server {
 
 server {
     listen {{ item.listen | default("80") }};
+    listen       443 ssl;
 
     server_name {{ item.server_name }};
+    
+    ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
+    ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+
     error_log /var/log/nginx/error.log info;
     root {{ item.root }};
     index index.php index.html index.htm;
