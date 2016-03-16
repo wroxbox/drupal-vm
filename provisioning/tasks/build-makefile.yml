@@ -9,6 +9,7 @@
   file:
     path: "{{ drupal_core_path }}"
     state: directory
+    recurse: yes
     mode: 0775
   become: no
   when: drupal_site.stat.exists == false

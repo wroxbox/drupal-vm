@@ -97,6 +97,10 @@ apache_vhosts:
     extra_parameters: |
           ProxyPassMatch ^/(.*\.php(/.*)?)$ "fcgi://127.0.0.1:9000{{ pimpmylog_install_dir }}"
 
+  - servername: "{{ vagrant_ip }}"
+    serveralias: "dashboard.{{ vagrant_hostname }}"
+    documentroot: "{{ dashboard_install_dir }}"
+
 apache_remove_default_vhost: true
 apache_mods_enabled:
   - expires.load
@@ -124,6 +128,9 @@ nginx_hosts:
   - server_name: "pimpmylog.{{ vagrant_hostname }}"
     root: "{{ pimpmylog_install_dir }}"
     is_php: true
+
+  - server_name: "{{ vagrant_ip }} dashboard.{{ vagrant_hostname }}"
+    root: "{{ dashboard_install_dir }}"
 
 nginx_remove_default_vhost: true
 
@@ -161,12 +168,13 @@ installed_extras:
 extra_packages:
   - unzip
 
-# `nodejs` must be in installed_extras for this to work.
+# `nodejs` must be in installed_extras for this to work. Valid examples: "0.10",
+# "0.12", "4.x", "5.x".
 nodejs_version: "0.12"
 nodejs_npm_global_packages: []
 
 # `ruby` must be in installed_extras for this to work.
-ruby_install_gems_user: "{{ vagrant_user }}"
+ruby_install_gems_user: "{{ drupalvm_user }}"
 ruby_install_gems: []
 
 # You can configure almost anything else on the server in the rest of this file.
@@ -208,7 +216,9 @@ php_enable_php_fpm: true
 php_fpm_listen: "127.0.0.1:9000"
 
 composer_path: /usr/bin/composer
-composer_home_path: '/home/vagrant/.composer'
+composer_home_path: "/home/{{ drupalvm_user }}/.composer"
+composer_home_owner: "{{ drupalvm_user }}"
+composer_home_group: "{{ drupalvm_user }}"
 # composer_global_packages:
 #   - { name: phpunit/phpunit, release: '@stable' }
 
@@ -253,4 +263,5 @@ solr_xmx: "128M"
 selenium_version: 2.46.0
 
 # Other configuration.
+dashboard_install_dir: /var/www/dashboard
 known_hosts_path: ~/.ssh/known_hosts
